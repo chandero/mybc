@@ -1,0 +1,68 @@
+<mdl-card class="card">
+    <mdl-card class="card-left">
+        <table>
+            <colgroup>
+                <col class="item-icon">
+                <col class="item-callerid">
+                <col class="item-icon">
+                <col class="item-callerdate">
+                <col class="item-icon">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        <div class="header-name">
+                            <div>
+                                <mdl-textfield type="text" icon="search"></mdl-textfield>
+                            </div>
+                            <div style="display:block; margin: auto;">
+                                <img src="../assets/images/contactheader.svg">
+                                <button mdl-button mdl-button-type="icon"><mdl-icon style="font-size:28px;">add</mdl-icon></button>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="item-disposicion">
+                            <img src="../assets/images/phone1.svg">
+                        </div>
+                    </th>
+                    <th colspan="2" class="header-callerdate">
+                        <div>
+                            <input id="iniDate" #_iniDate label="Desde" type="date">
+                            <input id="endDate" #_endDate label="Hasta" type="date">
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="5">
+                        <div class="line">
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngFor="let cdr of _cdrs" class="item">
+                    <td class="item-icon">
+                        <img src="../assets/images/contactheader.svg">
+                    </td>
+                    <td class="item-callerid">{{ cdr.callId }}</td>
+                    <td class="item-icon">
+                        <img src="../assets/images/missedcall.svg">
+                    </td>
+                    <td class="item-callerdate">{{ cdr.callDate }}</td>
+                    <td class="item-icon">
+                        <button mdl-button  mdl-button-type="icon">
+                               <mdl-icon style="font-size:24px;color:rgb(63,165,59);">phone</mdl-icon>
+                            </button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </mdl-card>
+</mdl-card>

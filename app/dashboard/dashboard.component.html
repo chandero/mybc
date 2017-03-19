@@ -1,0 +1,83 @@
+<div class="mybc-layout mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-drawer ">
+  <!-- Status -->
+  <header class="mybc-header mdl-layout__header">
+    <!-- <div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button"><i class="material-icons">menu</i></div> -->
+    <div class="mdl-layout__header-row">
+      <div class="in-column mdl-layout__header_row">
+        <div class="in-row">
+          <mdl-icon class="status-user-img" svgSrc="../assets/images/user.svg"></mdl-icon><span id="name" class="status-user-font">{{ _userFullname }}</span></div>
+        <div class="in-row">
+          <mdl-icon class="status-phone-img" svgSrc="../assets/images/ext.svg"></mdl-icon><span id="phone" class="status-phone-font">{{ _userPhone }}</span></div>
+      </div>
+      <div class="mdl-layout-spacer"></div>
+      <div class="in-row">
+        <div class="in-column">
+          <div id="name" class="status-time-font">{{ _data | date:'hh:mm' }}</div>
+          <div id="phone" class="status-time-font">{{ _data | date:'dd/MM/yyyy' }}</div>
+        </div>
+        <div class="in-column">
+          <mdl-icon svgSrc="../assets/images/exit.svg"></mdl-icon>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu -->
+  <div class="mybc-drawer mdl-layout__drawer">
+    <span class="mdl-layout-title">
+    <img src="../assets/images/logo.svg" class="menu-logo">
+  </span>
+    <nav class="mdl-navigation">
+      <a routerLink="/dashboard/webphone" class="mdl-navigation__link">
+        <img src="../assets/images/webphone.png" class="menu-image-webphone" />
+        <div class="menu-title-webphone">WebPhone</div>
+      </a>
+      <a routerLink="/dashboard/cdr" class="mdl-navigation__link">
+        <img src="../assets/images/cdr.png" class="menu-image-llamadas" />
+        <div class="menu-title-llamadas">Llamadas</div>
+      </a>
+      <a routerLink="/dashboard/contacts" class="mdl-navigation__link">
+        <img src="../assets/images/contact.png" class="menu-image-contactos" />
+        <div class="menu-title-contactos">Contactos</div>
+      </a>
+      <a routerLink="/dashboard/conferences" class="mdl-navigation__link">
+        <img src="../assets/images/conference.png" class="menu-image-conferencia" />
+        <div class="menu-title-conferencia">Conferencia</div>
+      </a>
+      <a routerLink="/dashboard/voicemail" class="mdl-navigation__link">
+        <img src="../assets/images/voicemail.png" class="menu-image-voicemail" />
+        <div class="menu-title-voicemail">Voicemail</div>
+      </a>
+      <a routerLink="/dashboard/followme" class="mdl-navigation__link">
+        <img src="../assets/images/followme.png" class="menu-image-followme" />
+        <div class="menu-title-followme">Sigueme</div>
+      </a>
+      <a routerLink="/dashboard/setup" class="mdl-navigation__link">
+        <img src="../assets/images/setup.png" class="menu-image-setup" />
+        <div class="menu-title-setup">Configuración</div>
+      </a>
+    </nav>
+  </div>
+  <!-- Content -->
+  <main class="mdl-layout__content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+<audio id="audio_remote" autoplay="autoplay"> </audio>
+<div id="divVideoRemote" style='position:relative; border:5px solid #009; height:100%; width:100%; z-index: auto; opacity: 1'>
+<video class="video" width="100%" height="100%" id="video_remote" autoplay="autoplay" style="opacity: 0;
+                                        background-color: #000000; -webkit-transition-property: opacity; transition-property: opacity; -webkit-transition-duration: 2s; transition-duration: 2s;"></video>
+</div>
+<div id="divVideoLocalWrapper" style="margin-left: 0px; border:0px solid #009; z-index: 1000">
+<iframe class="previewvideo" style="border:0px solid #009; z-index: 1000"> </iframe>
+<div id="divVideoLocal" class="previewvideo" style=' border:0px solid #009; z-index: 1000'>
+<video class="video" width="100%" height="100%" id="video_local" autoplay="autoplay" muted="true" style="opacity: 0;
+                                            background-color: #000000; -webkit-transition-property: opacity; transition-property: opacity;
+                                            -webkit-transition-duration: 2s; transition-duration: 2s;"></video>
+</div>
+</div>
+<div id="divScreencastLocalWrapper" style="margin-left: 90px; border:0px solid #009; z-index: 1000">
+<iframe class="previewvideo" style="border:0px solid #009; z-index: 1000"> </iframe>
+<div id="divScreencastLocal" class="previewvideo" style=' border:0px solid #009; z-index: 1000'>
+</div>
+</div>
