@@ -10,6 +10,7 @@ import { CdrComponent } from './cdr/index';
 import { ContactsComponent } from './contacts/index';
 import { ContactComponent } from './contact/index';
 import { ConferenceComponent } from './conference/index';
+import { VideoconferenceComponent } from './videoconference/index';
 import { ConferencesComponent } from './conferences/index';
 import { VoicemailComponent } from './voicemail/index';
 import { FollowmeComponent } from './followme/index';
@@ -30,18 +31,20 @@ export const appRoutes: Routes = [
     	{	
 		path: 'dashboard',
 		component: DashboardComponent,
-    	children: [
-			{ path : '', redirectTo: 'webphone', pathMatch: 'full'},
-	    	{ path: 'webphone', component: WebphoneComponent },
-        { path: 'cdr', component: CdrComponent },
-        { path: 'contacts', component: ContactsComponent },
-        { path: 'contact', component: ContactComponent },
-        { path: 'conference', component: ConferenceComponent },
-        { path: 'conferences', component: ConferencesComponent },
-        { path: 'voicemail', component: VoicemailComponent },
-        { path: 'followme' , component: FollowmeComponent },
-        { path: 'settings', component: SettingsComponent }
-    	]
+    children: [
+			{ path : '', redirectTo: 'webphone', pathMatch: 'full' },
+	    	{ path: 'webphone', component: WebphoneComponent,     canActivate: [AuthGuard] },
+        { path: 'cdr', component: CdrComponent,     canActivate: [AuthGuard] },
+        { path: 'contacts', component: ContactsComponent,     canActivate: [AuthGuard] },
+        { path: 'contact', component: ContactComponent,     canActivate: [AuthGuard] },
+        { path: 'conference', component: ConferenceComponent,     canActivate: [AuthGuard] },
+        { path: 'conferences', component: ConferencesComponent,     canActivate: [AuthGuard] },
+        { path: 'videoconference', component: VideoconferenceComponent,     canActivate: [AuthGuard] },
+        { path: 'voicemail', component: VoicemailComponent,     canActivate: [AuthGuard] },
+        { path: 'followme' , component: FollowmeComponent,     canActivate: [AuthGuard] },
+        { path: 'settings', component: SettingsComponent,     canActivate: [AuthGuard] }
+    	],
+    canActivate: [AuthGuard]
   	},
 	{ path: '**', component: DashboardComponent }
 ];

@@ -1,17 +1,12 @@
-import { Optional } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 
-export class contact {
-    public name:string;
-    public address:string;
-    public email:string;
-    public phone:string[];
-    public selected:boolean;
+@Injectable()
+export class Contact {
+    public cont_name:string;
+    public cont_number:string;
+    public cont_incall:boolean;
 
-    constructor(name:string, address:string, email:string, phone:string[]){
-        this.name = name;
-        this.address = address;
-        this.email = email;
-        this.phone = phone;
-        this.selected = false;
-    } 
+
+    constructor(){}
+
 }

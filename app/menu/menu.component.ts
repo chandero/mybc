@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
   }
 
-  private _toggleSidebar() {
+  private _toggleSidebar() { 
     this._open = !this._open;
   }
 

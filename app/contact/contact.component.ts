@@ -34,7 +34,7 @@ export class ContactComponent implements OnInit {
       contactName : ['', Validators.required ],
       contactPhoneOne: ['',  Validators.required],
       contactPhoneTwo: [''],
-      contactEmail: ['', Validators.email],
+      contactEmail: [''],
       contactAddress: ['']
     });
     

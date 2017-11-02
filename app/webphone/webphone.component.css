@@ -1,10 +1,10 @@
 @font-face {
     font-family: cylb;
-    src: url('../../assets/fonts/c&lb.ttf');
+    src: url('/mybc/assets/fonts/c&lb.ttf');
 }
 @font-face {
     font-family: cyl;
-    src: url('../../assets/fonts/c&l.ttf');
+    src: url('/mybc/assets/fonts/c&l.ttf');
 }
 .webphone.status {
     width: 100%;

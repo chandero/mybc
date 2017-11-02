@@ -1,19 +1,19 @@
-import { Optional } from '@angular/core';
-import { contact } from './contact.model';
+import { Injectable, Optional } from '@angular/core';
 
-export class conference {
-    public confId:string;
-    public confName:string;
-    public confDescription:string;
-    public confDate:string;
-    public confParticipants:contact[];
-    public confSelected:boolean;
+import { Conference_invitado } from './conference_invitado.model';
 
-    constructor(confId:string, confName:string, confDescription:string, confDate:string, @Optional() confParticipants:contact[]){
-        this.confId = confId;
-        this.confName = confName;
-        this.confDescription = confDescription;
-        this.confDate = confDate;
-        this.confParticipants = confParticipants;
+@Injectable()
+export class Conference {
+
+    public copr_id: number;
+    public exco_id: number;
+    public copr_fecha: string;
+    public copr_duracion: number;
+    public copr_activa: boolean;
+    public copr_descripcion: string;
+    public invitados: Conference_invitado[];
+
+    constructor(){
+
     }
 }

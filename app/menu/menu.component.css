@@ -1,6 +1,6 @@
 @font-face {
     font-family: cylb;
-    src: url('../../assets/fonts/c&lb.ttf');
+    src: url('/mybc/assets/fonts/c&lb.ttf');
 }
 
 .md-toolbar {
@@ -111,7 +111,7 @@
     height: 32px;
 }
 
-.menu-title-followme {
+.menu-title-followme { 
     font-size: 12px;
 }
 

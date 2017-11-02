@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, Output, OnChanges, SimpleChange } from '@angular/core';
+import {Subscription} from "rxjs";
+import {TimerObservable} from "rxjs/observable/TimerObservable";
 
 @Component({
   selector: 'app-clock',
@@ -7,14 +9,21 @@ import { Component, OnInit, Input, Output, OnChanges, SimpleChange } from '@angu
 })
 export class ClockComponent implements OnInit, OnChanges {
 
+  private _hour:number;
+  private _minute:number;
+  private _second:number;
   private _data;
-  private _format;
-  private _timer = true;
+  private _running:boolean = false;
+  private _timer:any;
+  private _sub:any;
   private _intervalSet = false;
 
-  @Input() enabled:boolean = false;
+  private tick: number;
+  private subscription: Subscription;
 
-  constructor() { 
+  @Input() enabled: boolean = false;
+
+  constructor() {
 
     this.createClock();
 
@@ -23,60 +32,65 @@ export class ClockComponent implements OnInit, OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges(changes: {[propKey: string]: SimpleChange}){
-    for (let propName in changes){
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    console.log('Evento: Cambio en reloj');
+    for (let propName in changes) {
+      console.log('Evento: parametro reloj: ' + propName);
       if (propName = "enabled") {
         let changedProp = changes[propName];
-        if (changedProp.currentValue = true){
+        console.log('Evento: parametro valor reloj: '+ changedProp.currentValue);
+        if (changedProp.currentValue === true) {
           this.start();
         } else {
-          this.reset;
+          this.stop();
         }
       }
     }
   }
 
-  createClock(){
-    var data = new Date();
-    data.setHours(0);
-    data.setMinutes(0);
-    data.setSeconds(0);
-    data.setMilliseconds(0);
-    var date, miliseconds;
-    this._format = 'HH:mm:ss';
-    this._data = data;
-    if (this._timer) {
-      if (typeof this._data !== 'Date') {
-        date = new Date();
-      } else {
-        date = this._data;
-      }
-
-      miliseconds = (60 - date.getSeconds()) * 1000;
-      window.setTimeout(() => { this.refreshTime(); }, miliseconds);
-    }    
+  private createClock() {
+    console.log('Evento: Creando Reloj');
+    this.reset();
   }
 
-  refreshTime() {
-    this._data = new Date();
-    this._data.setHours(0);
-    this._data.setMinutes(0);
-    this._data.setSeconds(0);
-    this._data.setMilliseconds(0);
+  private formatClock(){
+    this._data = new Date(2000,1,1,this._hour,this._minute,this._second,0);
+  }
 
-    if (!this._intervalSet) {
-      window.setInterval(() => { this.refreshTime() }, 60000);
-      this._intervalSet = true;
+  private reset() {
+    this._hour = 0;
+    this._minute = 0;
+    this._second = 0;
+    this.formatClock();
+  }
+
+  private start() {
+    this.reset();
+    console.log('Evento: Iniciando Reloj');
+    this._timer = TimerObservable.create(0,1000);
+        // subscribing to a observable returns a subscription object
+    this._sub = this._timer.subscribe(t => this.tickerFunc(t)); 
+    this._running = true;   
+  }
+
+  private stop(){
+    console.log('Evento: ejecutando stop del reloj');
+    if (this._running){
+      this._sub.unsubscribe();
     }
   }
 
-  reset(){
-    this._timer = false;
-  }
-
-  start(){
-    this.refreshTime();
-    this._timer = true;
+  private tickerFunc(t){
+    this._second++;
+    if (this._second > 59) {
+      this._second = 0;
+      this._minute++;
+      if (this._minute > 59){
+        this._minute = 0;
+        this._hour++;
+      }
+    }
+    this.formatClock();
   }
 
 }

@@ -1,9 +1,11 @@
 import { Injectable} from '@angular/core';
 
+declare var SIPml: any;
+
 @Injectable()
-export class SIPml {
+export class sipml {
         public static $inject = [];
-        private _SIP_CLIENT = window['SIPml'] || null;
+        private _SIP_CLIENT = SIPml || null;
         private sipEnabled = false;
         private sipStack = null;
         private sipSessionCall = null;
@@ -45,7 +47,7 @@ export class SIPml {
             this._SIP_CLIENT.setDebugLevel('fatal');
             this.audioElement.autoplay = true;
             this.ringingTone.loop = true;
-            this.ringingTone.src = 'ringingtone.mp3';
+            this.ringingTone.src = 'assets/tones/iphone_6_original.mp3';
         };
 
         public init(options) {

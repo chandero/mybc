@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 
-import { MdlModule } from 'angular2-mdl';
+import { MdlModule } from '@angular-mdl/core';
 import { MdlSelectModule } from '@angular-mdl/select';
 import { MdlPopoverModule } from '@angular-mdl/popover';
 
 import { ConferenceComponent } from './conference.component';
+
+import { AuthGuard } from '../_guards/auth.guard';
+
+import { WindowRefService } from '../services/windowref.service';
 
 @NgModule({
     declarations: [
@@ -21,7 +25,8 @@ import { ConferenceComponent } from './conference.component';
         MdlPopoverModule
     ],
     exports: [
-        ConferenceComponent]
+        ConferenceComponent],
+    providers: [WindowRefService , AuthGuard]        
 })
 
 export class ConferenceModule {}

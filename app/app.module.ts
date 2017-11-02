@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { routing_app } from './app.routing';
 import { AuthGuard } from './_guards/index';
 
+import { WindowRefService } from './services/windowref.service';
+import { WebphoneSIPmlService } from './services/webphone_sipml.service';
 
 import { LoginModule } from './login/login.module';
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -26,7 +28,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LoginModule,
     routing_app
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, WindowRefService, WebphoneSIPmlService ],
   bootstrap: [AppComponent]
 })
 

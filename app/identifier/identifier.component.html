@@ -7,12 +7,14 @@
     <div class="card card-container mybc-font mybc-background mybc-center mybc-login-container">
       <p id="profile-name" class="profile-name-card"></p>
       <form class="form-signin">
-      <span>usuario</span>
-      <div class="mybc-login-input">
-        <input type="email" id="inputEmail" class="mybc-login-input" required autofocus>
-      </div>
+<!--      <span>usuario</span> -->
+<!--        <div class="mybc-login-input"> -->
+          <mdl-textfield name="_identity" floating-label autofocus required [(ngModel)]="_identity" class="mdl-texfield mybc-login-input"  label="Usuario"
+                    type="text" (keyup.enter)="validateUser()"></mdl-textfield>
+<!--          <span style="color: white;" [ngClass]="{ 'hide': _uservalid }">{{ _usererror_label}}</span> -->
+<!--        </div> -->
       <p></p>
-      <button class="btn mybc-login-button" type="button" (click)="redirectToPassword()">siguente</button>
+      <button class="btn mybc-login-button" type="button" (click)="validateUser()">siguente</button>
     </form>
     <!-- /form -->
     <p></p>

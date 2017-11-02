@@ -21,10 +21,10 @@ export class StatusComponent implements OnInit {
     this._format = 'hh:mm:ss';
     this._data = data || new Date();
     if (this._timer) {
-      if (typeof this._data !== 'Date') {
-        date = new Date();
-      } else {
+      if (this._data instanceof Date) {
         date = this._data;
+      } else {
+        date = new Date();
       }
 
       miliseconds = (60 - date.getSeconds()) * 1000;

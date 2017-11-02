@@ -18,13 +18,13 @@
                 </div>
                 <div style="display:block; margin: auto;">
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"><span>nueva</span></button>
-                  <img src="../assets/images/conferencelist.svg">
+                  <img src="/mybc/assets/images/conferencelist.svg">
                 </div>
               </div>
             </th>
             <th>
               <div class="header-phone">
-                <img src="../assets/images/calendar2.svg">
+                <img src="/mybc/assets/images/calendar2.svg">
               </div>
             </th>
             <th class="header-actions">
@@ -34,7 +34,7 @@
             </th>
             <th>
               <div class="header-phone">
-                <img src="../assets/images/conferencepersons.svg">
+                <img src="/mybc/assets/images/conferencepersons.svg">
               </div>
             </th>
           </tr>
@@ -48,7 +48,7 @@
           </tr>
           <tr *ngFor="let conference of _conferences" class="item">
             <td class="item-icon">
-              <img src="../assets/images/headerconference.svg">
+              <img src="/mybc/assets/images/headerconference.svg">
             </td>
             <td class="item-conferencename">{{ conference.confDescription }}</td>
             <td class="item-conferencedate">{{ conference.confDate }}</td>
@@ -80,13 +80,13 @@
                   <mdl-textfield type="text" icon="search"></mdl-textfield>
                 </div>
                 <div style="display:block; margin: auto;">
-                  <img src="../assets/images/headerconference.svg">
+                  <img src="/mybc/assets/images/headerconference.svg">
                 </div>
               </div>
             </th>
             <th>
               <div class="header-phone">
-                <img src="../assets/images/calendar2.svg">
+                <img src="/mybc/assets/images/calendar2.svg">
               </div>
             </th>
             <th class="header-actions">
@@ -96,7 +96,7 @@
             </th>
             <th>
               <div class="header-phone">
-                <img src="../assets/images/play.svg">
+                <img src="/mybc/assets/images/play.svg">
               </div>
             </th>
           </tr>
@@ -108,9 +108,10 @@
               </div>
             </td>
           </tr>
+          <tr *ngIf="_conferences?.length < 1" ><td colspan=5>{{  _no_records }}</td></tr>
           <tr *ngFor="let conference of _conferences" class="item">
             <td class="item-icon">
-              <img src="../assets/images/headerconference.svg">
+              <img src="/mybc/assets/images/headerconference.svg">
             </td>
             <td class="item-conferencename">{{ conference.confDescription }}</td>
             <td class="item-conferencedate">{{ conference.confDate }}</td>
@@ -130,7 +131,7 @@
   </mdl-card>
   <mdl-card class="card-conferences">
     <div>
-      <img src="../assets/images/conferencelist.svg" class="card-conference-img">
+      <img src="/mybc/assets/images/conferencelist.svg" class="card-conference-img">
     </div>
     <div>
       <span>Número de sala virtual</span>
