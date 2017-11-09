@@ -59,6 +59,7 @@ export class WebphoneComponent implements OnInit, AfterViewInit {
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
+    event.stopPropagation();
     this._key = event.key;
     switch (this._key) {
       case '0': this.numberClick(0);
@@ -108,6 +109,7 @@ export class WebphoneComponent implements OnInit, AfterViewInit {
   }
 
   private dialerChange(event) {
+    event.stopPropagation;
     this._dialnumber = event.target.value;
     this.validateDialnumber();
   }

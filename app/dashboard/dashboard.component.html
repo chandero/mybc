@@ -5,24 +5,19 @@
     <div class="mdl-layout__header-row">
       <div class="in-column mdl-layout__header_row">
         <div class="in-row">
-          <img class="status-user-img" svgSrc="/mybc/assets/images/user.svg"><span id="name" class="status-user-font">{{ _userFullname }}</span></div>
+          <img class="status-user-img" src="/mybc/assets/images/user.svg"><span id="name" class="status-user-font">{{ _userFullname }}</span></div>
         <div class="in-row">
-          <img class="status-phone-img" svgSrc="/mybc/assets/images/ext.svg"><span id="phone" class="status-phone-font">{{ _userPhone }}</span></div>
+          <img class="status-phone-img" src="/mybc/assets/images/ext.svg"><span id="phone" class="status-phone-font">{{ _userPhone }}</span></div>
       </div>
       <div class="mdl-layout-spacer"></div>
       <dashboard-header></dashboard-header>
       <!-- aqui colocar los graficos para administrar llamada entrante y saliente -->
       <div class="mdl-layout-spacer"></div>
-      <div class="in-row">
-        <div class="in-column">
-          <div id="name" class="status-time-font">{{ _data | date:'hh:mm' }}</div>
-          <div id="phone" class="status-time-font">{{ _data | date:'dd/MM/yyyy' }}</div>
-          <div id="status" class="status-time-font">{{ _phonestatus }}</div>
-        </div>
-        <div class="in-column">
-          <img svgSrc="/mybc/assets/images/exit.svg">
-        </div>
+      <div class="flex">
+          <div id="name" class="flex-row status-time-font">{{ _data | date:'hh:mm' }}</div>
+          <div id="phone" class="flex-row status-time-font">{{ _data | date:'dd/MM/yyyy' }}</div>
       </div>
+          <img class="exit-img" src="/mybc/assets/images/exit.svg">
     </div>
   </header>
 
@@ -52,7 +47,7 @@
       <a routerLink="/dashboard/videoconference" class="mdl-navigation__link">
         <img src="/mybc/assets/images/conference.png" class="menu-image-conferencia" />
         <div class="menu-title-conferencia">Video Conferencia</div>
-      </a>      
+      </a>
       <a routerLink="/dashboard/voicemail" class="mdl-navigation__link">
         <img src="/mybc/assets/images/voicemail.png" class="menu-image-voicemail" />
         <div class="menu-title-voicemail">Voicemail</div>

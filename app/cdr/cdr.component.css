@@ -1,6 +1,6 @@
 @font-face {
     font-family: cylb;
-    src: url('/mybc/assets/fonts/c&lb.ttf');
+    src: url('/assets/fonts/c&lb.ttf');
 }
 
 .line {
@@ -76,7 +76,7 @@ input {
 
 .md-avatar-icon {
     margin-right:18px;
-    width: 16px; 
+    width: 16px;
 }
 
 .item {
@@ -240,7 +240,7 @@ input {
     font-family: cylb;
     font-size: 14px;
     width: 40%;
-    
+
 }
 
 
@@ -256,5 +256,5 @@ input {
 
 md-nav-list md-list-item .md-list-item, md-nav-list a[md-list-item] .md-list-item {
     min-height: 20px;
-    height: 25px;   
+    height: 25px;
 }
