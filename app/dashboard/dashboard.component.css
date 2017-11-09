@@ -1,6 +1,6 @@
 @font-face {
     font-family: cylb;
-    src: url('/mybc/assets/fonts/c&lb.ttf');
+    src: url('/assets/fonts/c&lb.ttf');
 }
 
 body {
@@ -11,7 +11,7 @@ body {
     .mdl-layout__header {
         padding-left: 0px !important;
     }
-    
+
     .mdl-layout__content {
         margin-left: 0px;
         font-family: cylb !important;
@@ -65,7 +65,7 @@ body {
 .mdl-navigation__link:hover {
     text-decoration: none;
     color: #000 !important;
-    background-color: rgb(176,206,31) !important;  
+    background-color: rgb(176,206,31) !important;
 }
 
 .menu-line {
@@ -147,6 +147,20 @@ body {
     font-size: 14px;
 }
 
+.status-user-img {
+  width: 32px;
+  height: 32px;
+}
+
+.status-phone-img {
+  width: 32px;
+  height: 32px;
+}
+
+.exit-img {
+  width: 32px;
+  height: 32px;
+}
 
 /* Sidebar Styles */
 

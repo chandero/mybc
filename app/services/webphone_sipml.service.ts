@@ -32,6 +32,9 @@ export class WebphoneSIPmlService {
     public incomingCall$:EventEmitter<any>;
     public answerCall$:EventEmitter<any>;
     public remoteStreamCall$:EventEmitter<any>;
+    public registryExten$:EventEmitter<any>;
+    public unregistryExten$:EventEmitter<any>;
+    public tryregistryExten$:EventEmitter<any>;
 
     // sipml vars
     private _sipStack:any;
@@ -79,6 +82,9 @@ export class WebphoneSIPmlService {
         this.incomingCall$ = new EventEmitter<any>();
         this.answerCall$ = new EventEmitter<any>();
         this.remoteStreamCall$ = new EventEmitter<any>();
+        this.registryExten$ = new EventEmitter<any>();
+        this.tryregistryExten$ = new EventEmitter<any>();
+        this.unregistryExten$ = new EventEmitter<any>();
 
         this._domain = `${this._window.location.hostname}`;
         this._user = localStorage.getItem('mybcexten');
@@ -488,10 +494,12 @@ export class WebphoneSIPmlService {
 
     public emitUnRegisterEvent(e:string){
         console.log('Emit:-->Evento unregister...'+e);
+        this.unregistryExten$.emit(e);
     }
 
     public emitTryToConnect(e:string){
         console.log('Emit:-->Evento Try Conenct...'+e);
+        this.tryregistryExten$.emit(e);
     }
 
     public emitConnectedEvent(e:string){
@@ -577,7 +585,7 @@ export class WebphoneSIPmlService {
     }
 
     public emitRegisterEvent(e:any){
-
+        this.registryExten$.emit(e);
     }
 
 }
