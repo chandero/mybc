@@ -1,9 +1,6 @@
 import { Component, OnInit, Attribute } from '@angular/core';
 import { WebphoneSIPmlService } from '../services/webphone_sipml.service';
-
-declare var gapi: any;
-
-//declare var SIPml:any;
+import { GoogleService } from '../services/google.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
   private auth2: any;
 
-  constructor( @Attribute("data") data, private webphoneService: WebphoneSIPmlService) {
+  constructor( @Attribute("data") data, private webphoneService: WebphoneSIPmlService, private googleService: GoogleService) {
     webphoneService.progressCall$.subscribe(e => this.progressHandler(e));
     webphoneService.confirmedCall$.subscribe(e => this.confirmedHandler(e));
     webphoneService.endedCall$.subscribe(e => this.endedHandler(e));
@@ -42,51 +39,6 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit(): void {
-    setTimeout(() => this.signIn(), 1000);
-  }
-
-  private signIn() {
-    gapi.load('auth2', () => {
-      this.auth2 = gapi.auth2.init({
-        client_id: '783669865413-v8no6fp43ljeebqdd69km4gnnivq1otk.apps.googleusercontent.com',
-        cookie_policy: 'single_host_origin',
-        scope: 'profile email https://www.googleapis.com/auth/contacts.readonly'
-      });
-      this.auth2.attachClickHandler(document.getElementById('googleres'), {}, this.onSignIn, this.onFailure);
-    })
-  }
-
-  private onSignIn() {
-    this.fetchcontact();
-  }
-
-  private onFailure() {
-
-  }
-
-  private fetchcontact() {
-    gapi.load('client:auth2', () => {
-      gapi.client.init({
-        apiKey: 'AIzaSyBaw7OWQKc74-MAp09WLYnb21bxRavRkPc',
-        discoveryDocs: ['https://people.googleapis.com/$discovery/rest?version=v1'],
-        clientId: '783669865413-v8no6fp43ljeebqdd69km4gnnivq1otk.apps.googleusercontent.com',
-        scope: 'profile email https://www.googleapis.com/auth/contacts.readonly'
-      }).then(() => {
-        return gapi.client.people.people.connections.list({
-          resourceName: 'people/me',
-          personFields: 'emailAddresses,names'
-        });
-      }).then(
-        (res) => {
-          console.log("Res: " + JSON.stringify(res));
-          //this.userContacts.emit(this.transformToMailListModel(res.result));
-        },
-        error => console.log("ERROR " + JSON.stringify(error))
-        )
-    }
   }
 
   private progressHandler(e: any) {

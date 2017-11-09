@@ -10,7 +10,7 @@ import { AuthGuard } from './_guards/index';
 
 import { WindowRefService } from './services/windowref.service';
 import { WebphoneSIPmlService } from './services/webphone_sipml.service';
-
+import { GoogleService } from './services/google.service';
 import { LoginModule } from './login/login.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 
@@ -28,7 +28,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LoginModule,
     routing_app
   ],
-  providers: [AuthGuard, WindowRefService, WebphoneSIPmlService ],
+  providers: [AuthGuard, WindowRefService, WebphoneSIPmlService, GoogleService ],
   bootstrap: [AppComponent]
 })
 
