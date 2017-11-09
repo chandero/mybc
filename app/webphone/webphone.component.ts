@@ -48,6 +48,7 @@ export class WebphoneComponent implements OnInit, AfterViewInit {
     webphoneService.succeededCall$.subscribe(e => this.succeededHandler(e));
     webphoneService.incomingCall$.subscribe(e => this.incomingHandler(e));
     webphoneService.answerCall$.subscribe(e => this.answerHandler(e));
+
   }
 
   ngOnInit() {

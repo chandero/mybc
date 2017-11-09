@@ -32,6 +32,9 @@ export class WebphoneSIPmlService {
     public incomingCall$:EventEmitter<any>;
     public answerCall$:EventEmitter<any>;
     public remoteStreamCall$:EventEmitter<any>;
+    public registryExten$:EventEmitter<any>;
+    public unregistryExten$:EventEmitter<any>;
+    public tryregistryExten$:EventEmitter<any>;
 
     // sipml vars
     private _sipStack:any;
@@ -40,11 +43,11 @@ export class WebphoneSIPmlService {
     private _callerid:string;
     private _registerSession:any;
     private _callListener:any;
-    
+
     private _socket: any;
     private _configuration: any;
-    private _session:any; 
-    private _eventHandlers:any;   
+    private _session:any;
+    private _eventHandlers:any;
     private _options:any;
 
     private _domain:string;
@@ -56,7 +59,7 @@ export class WebphoneSIPmlService {
 
     private _oConfigCall:any;
 
-    private _window: Window;    
+    private _window: Window;
 
     private _isAudioMute:boolean = false;
     private _isVideoMute:boolean = false;
@@ -79,6 +82,9 @@ export class WebphoneSIPmlService {
         this.incomingCall$ = new EventEmitter<any>();
         this.answerCall$ = new EventEmitter<any>();
         this.remoteStreamCall$ = new EventEmitter<any>();
+        this.registryExten$ = new EventEmitter<any>();
+        this.tryregistryExten$ = new EventEmitter<any>();
+        this.unregistryExten$ = new EventEmitter<any>();
 
         this._domain = `${this._window.location.hostname}`;
         this._user = localStorage.getItem('mybcexten');
@@ -115,21 +121,21 @@ export class WebphoneSIPmlService {
                         break;
                     }
                     case 'started': {
-                        console.log("Evento: Trying to Login"); 
+                        console.log("Evento: Trying to Login");
                         this.login(); // function to login in sip server
                         this.emitTryToConnect('Registrando...');
                         break;
-                    }   
+                    }
                     case 'connected': {
                         console.log("Evento: Registrado con Sip Server");
                         this.emitRegisterEvent('Registrado con Sip Server');
                         break;
-                    }   
+                    }
                     case 'sent_request': {
                         console.log("Evento: sent_request");
                         this.emitRequestMsg(e.description);
                         break;
-                   }   
+                   }
                    case 'terminated': {
                         console.log("Evento: terminated");
                         this.emitRequestMsg(e.description);
@@ -148,7 +154,7 @@ export class WebphoneSIPmlService {
                             this.emitIncomingcallEvent(sRemoteNumber);
                         }
                         break;
-                   } 
+                   }
                    case 'm_permission_requested': {
                         break;
                    }
@@ -159,12 +165,12 @@ export class WebphoneSIPmlService {
                             this._session = null;
                             this.emitRefusedEvent(e.description);
                         break;
-                    } 
+                    }
                     case 'i_new_message': {
                         this.acceptMessage(e);
                         break;
                     }
-                    case 'starting': 
+                    case 'starting':
                     default: break;
             }
         }
@@ -190,7 +196,7 @@ export class WebphoneSIPmlService {
                     ],
             sip_headers: [
                                 { name: 'User-Agent', value: 'Anywhere-MyBC/Beta 1.0' },
-                                { name: 'Organization', value: 'Tmsoft SAS' }                
+                                { name: 'Organization', value: 'Tmsoft SAS' }
             ]
         });
         this._sipStack.start();
@@ -221,7 +227,7 @@ export class WebphoneSIPmlService {
                     }
 
                     // In the browser Display teh call is finished
-                    case 'terminated': 
+                    case 'terminated':
                     case 'terminating': {
 
                         this._session = null;
@@ -306,7 +312,7 @@ export class WebphoneSIPmlService {
                             this._session = null;
                             this.emitRefusedEvent(e.description);
                         break;
-                    }                     
+                    }
                 }
 
         }
@@ -410,7 +416,7 @@ export class WebphoneSIPmlService {
     }
 
     public togglehold(){
-        
+
         console.log('Mute:-->toggle hold:'+ JSON.stringify(this._isOnHold));
         var result:number;
         if (this._isOnHold){
@@ -469,7 +475,7 @@ export class WebphoneSIPmlService {
 
     public stopRejected(){
         this.audioPlayer.stop('rejected');
-    }          
+    }
 
 
 
@@ -479,7 +485,7 @@ export class WebphoneSIPmlService {
         console.log('Emit:-->Evento Terminated...');
         this.stopRingbackTone();
         this.stopRingTone();
-        this.endedCall$.emit(e);        
+        this.endedCall$.emit(e);
     }
 
     public emitRequestMsg(e:string){
@@ -488,10 +494,12 @@ export class WebphoneSIPmlService {
 
     public emitUnRegisterEvent(e:string){
         console.log('Emit:-->Evento unregister...'+e);
+        this.unregistryExten$.emit(e);
     }
 
     public emitTryToConnect(e:string){
         console.log('Emit:-->Evento Try Conenct...'+e);
+        this.tryregistryExten$.emit(e);
     }
 
     public emitConnectedEvent(e:string){
@@ -502,7 +510,7 @@ export class WebphoneSIPmlService {
     }
 
     public emitRefusedEvent(e:string){
-        console.log('Emit:-->Evento Refused...'+e);        
+        console.log('Emit:-->Evento Refused...'+e);
         this.stopRingTone();
         this.stopRingbackTone();
     }
@@ -510,7 +518,7 @@ export class WebphoneSIPmlService {
     public emitRemoteStreamEvent(stream:any){
         console.log('Emit:-->Evento Remote Stream...');
         this.remoteStreamCall$.emit(stream);
-    }    
+    }
 
     public emitProgressEvent(e:any) {
         this.startRingbackTone();
@@ -518,15 +526,15 @@ export class WebphoneSIPmlService {
     }
 
     public emitFailedEvent(e:any){
-        console.log('Emit:-->Evento Failed...');        
+        console.log('Emit:-->Evento Failed...');
         this.stopRingTone();
         this.startRejected();
         this.failedCall$.emit(e);
     }
 
     public emitAnswerEvent(e:any){
-        console.log('Emit:-->Evento Answer...'); 
-        this.stopRingTone();       
+        console.log('Emit:-->Evento Answer...');
+        this.stopRingTone();
         this.answerCall$.emit(e);
     }
 
@@ -536,14 +544,14 @@ export class WebphoneSIPmlService {
     }
 
     public emitEndedEvent() {
-        console.log('Emit:-->Evento Ended...');        
+        console.log('Emit:-->Evento Ended...');
         this.startRingbackTone();
         this._session = null;
         this.endedCall$.emit();
     }
 
     public emitSucceededEvent(e:any){
-        console.log('Emit:-->Evento Succeeded...');        
+        console.log('Emit:-->Evento Succeeded...');
         this.succeededCall$.emit(e);
     }
 
@@ -553,7 +561,7 @@ export class WebphoneSIPmlService {
 
     public emitUnholdEvent(){
         this.unholdCall$.emit({'result':true});
-    }    
+    }
 
     public emitMuteEvent(){
         this.muteCall$.emit({'result':true});
@@ -564,20 +572,20 @@ export class WebphoneSIPmlService {
     }
 
     public emitIncomingcallEvent(e:any){
-        console.log('Emit:-->Evento Inconming...'+e);  
-        this.stopRingbackTone();      
+        console.log('Emit:-->Evento Inconming...'+e);
+        this.stopRingbackTone();
         this.startRingbackTone();
         this.incomingCall$.emit(e);
-    }  
+    }
 
     public emitRingbackEvent(e:any){
-        console.log('Emit:-->Evento Ringback...'+e.description);  
-        this.stopRingbackTone();      
+        console.log('Emit:-->Evento Ringback...'+e.description);
+        this.stopRingbackTone();
         this.startRingbackTone();
     }
 
     public emitRegisterEvent(e:any){
-
+        this.registryExten$.emit(e);
     }
 
 }
